@@ -1,0 +1,11 @@
+import { <%= it.repoNameCamelCase %>RepoInputZodSchema, <%= it.repoNameCamelCase %>RepoOutputZodSchema } from '@/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/repos/<%= it.repoNameKebabCase %>/<%= it.repoNameKebabCase %>.repo.zod.schemas';
+import type { IRepo } from '@/core/base-classes/repo/repo.interface';
+import type * as z from 'zod';
+
+
+
+export type <%= it.repoNamePascalCase %>RepoInput = z.infer<typeof <%= it.repoNameCamelCase %>RepoInputZodSchema>;
+export type <%= it.repoNamePascalCase %>RepoOutput = z.infer<typeof <%= it.repoNameCamelCase %>RepoOutputZodSchema>;
+
+export interface I<%= it.repoNamePascalCase %>Repo extends IRepo<<%= it.repoNamePascalCase %>RepoInput, <%= it.repoNamePascalCase %>RepoOutput> {}
+

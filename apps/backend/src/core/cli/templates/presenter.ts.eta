@@ -1,0 +1,13 @@
+import type { I<%= it.endpointIdPascalCase %>Presenter } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.presenter.interface';
+import { <%= it.endpointIdCamelCase %>Responses, type <%= it.endpointIdPascalCase %>Responses } from '@/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.responses';
+import { Presenter } from '@/core/base-classes/presenter/presenter';
+import { fullInjectable } from '@/core/utils/core.utils';
+
+
+
+@fullInjectable()
+export class <%= it.endpointIdPascalCase %>Presenter extends Presenter<<%= it.endpointIdPascalCase %>Responses> implements I<%= it.endpointIdPascalCase %>Presenter {
+    public override getResponses() {
+        return <%= it.endpointIdCamelCase %>Responses;
+    }
+}

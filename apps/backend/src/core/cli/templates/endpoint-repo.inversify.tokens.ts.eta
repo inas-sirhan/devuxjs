@@ -1,0 +1,5 @@
+import { defineDiToken, createInjectFn } from '@/core/utils/di-tokens.core.utils';
+
+
+export const <%= it.repoNamePascalCase %>RepoDiToken = defineDiToken('<%= it.repoNamePascalCase %>Repo');
+export const inject<%= it.repoNamePascalCase %>Repo = createInjectFn(<%= it.repoNamePascalCase %>RepoDiToken);

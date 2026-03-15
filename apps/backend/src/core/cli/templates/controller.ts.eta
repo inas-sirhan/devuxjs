@@ -1,0 +1,18 @@
+import type { I<%= it.endpointIdPascalCase %>Controller } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.controller.interface';
+import type { I<%= it.endpointIdPascalCase %>UseCase } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.use-case.interface';
+import type { I<%= it.endpointIdPascalCase %>Validator } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.validator.interface';
+import { inject<%= it.endpointIdPascalCase %>UseCase, inject<%= it.endpointIdPascalCase %>Validator } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.inversify.tokens';
+import { Controller } from '@/core/base-classes/controller/controller';
+import { fullInjectable } from '@/core/utils/core.utils';
+
+
+
+@fullInjectable()
+export class <%= it.endpointIdPascalCase %>Controller extends Controller<I<%= it.endpointIdPascalCase %>UseCase> implements I<%= it.endpointIdPascalCase %>Controller {
+    public constructor(
+    @inject<%= it.endpointIdPascalCase %>UseCase() useCase: I<%= it.endpointIdPascalCase %>UseCase,
+    @inject<%= it.endpointIdPascalCase %>Validator() validator: I<%= it.endpointIdPascalCase %>Validator
+    ) {
+      super(useCase, validator);
+    }
+}

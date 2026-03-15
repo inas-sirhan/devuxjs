@@ -1,0 +1,38 @@
+import type { <%= it.endpointIdPascalCase %>Request } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.zod.schema';
+import { type AssertTrue, type AssertValidResponses, type DottedPath, type ExtractResponsesSchemasTypes, type Responses } from '@/core/types/core.types';
+import { createErrorApiResponse<% if (it.httpMethod === 'put' || it.httpMethod === 'patch') { %>, createUpdateApiResponse<% } else { %>, createSuccessApiResponse<% } %> } from '@/core/utils/responses-builders.core.utils';
+import { <%= it.domainNamePascalCase %>ErrorCodes } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/<%= it.domainNameKebabCase %>.error-codes';
+import { createZodObject } from '@packages/shared-core/zod/shared.core.zod.utils';
+
+
+
+export const <%= it.endpointIdCamelCase %>Responses = {
+    'ErrorKeyExample': createErrorApiResponse({
+        statusCode: 400,
+        errorCode: 'example_error_code',
+        path: '' satisfies DottedPath<<%= it.endpointIdPascalCase %>Request>,
+<% if (it.generateResponseDescription) { -%>
+        description: '',
+<% } -%>
+    }),
+
+<% if (it.httpMethod === 'put' || it.httpMethod === 'patch') { -%>
+    ...createUpdateApiResponse('Updated'<% if (it.generateResponseDescription) { %>, { changedDescription: '' }<% } %>),
+<% } else { -%>
+    'SuccessKeyExample': createSuccessApiResponse({
+        statusCode: 200,
+        dataSchema: createZodObject({
+
+        }),
+<% if (it.generateResponseDescription) { -%>
+        description: '',
+<% } -%>
+    }),
+<% } -%>
+} as const satisfies Responses;
+
+
+
+export type <%= it.endpointIdPascalCase %>Responses = typeof <%= it.endpointIdCamelCase %>Responses;
+export type <%= it.endpointIdPascalCase %>ResponsesCleaned = ExtractResponsesSchemasTypes<<%= it.endpointIdPascalCase %>Responses>;
+export type _CheckValidResponses = AssertTrue<AssertValidResponses<<%= it.endpointIdPascalCase %>Responses>>;

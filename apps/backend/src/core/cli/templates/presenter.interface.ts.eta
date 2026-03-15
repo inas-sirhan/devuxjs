@@ -1,0 +1,6 @@
+import type { IPresenter } from '@/core/base-classes/presenter/presenter.interface';
+import type { <%= it.endpointIdPascalCase %>Responses } from '@/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.responses';
+
+
+
+export interface I<%= it.endpointIdPascalCase %>Presenter extends IPresenter<<%= it.endpointIdPascalCase %>Responses> {}

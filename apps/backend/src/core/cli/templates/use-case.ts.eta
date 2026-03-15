@@ -1,0 +1,48 @@
+import type { I<%= it.endpointIdPascalCase %>UseCase } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.use-case.interface';
+import { <%= it.domainNamePascalCase %>ErrorCodes } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/<%= it.domainNameKebabCase %>.error-codes';
+import { assertNeverReached } from '@/core/utils/core.utils';
+import { inject<%= it.endpointIdPascalCase %>Presenter } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.inversify.tokens';
+<% if (it.generateRepo) { -%>
+import { inject<%= it.repoNamePascalCase %>Repo } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/repos/<%= it.repoNameKebabCase %>/<%= it.repoNameKebabCase %>.repo.inversify.tokens';
+<% } -%>
+<% if (it.useTransaction) { -%>
+import { TransactionalUseCase } from '@/core/base-classes/use-case/use-case.transactional';
+import type { TransactionIsolationLevel, TransactionAccessMode } from '@/core/core-injectables/database/database-transaction-manager/database-transaction-manager.types';
+<% } else { -%>
+import { NonTransactionalUseCase } from '@/core/base-classes/use-case/use-case.non-transactional';
+<% } -%>
+import type { I<%= it.endpointIdPascalCase %>Presenter } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.presenter.interface';
+import { fullInjectable } from '@/core/utils/core.utils';
+import type { <%= it.endpointIdPascalCase %>Request } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.zod.schema';
+<% if (it.generateRepo) { -%>
+import type { I<%= it.repoNamePascalCase %>Repo } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/repos/<%= it.repoNameKebabCase %>/<%= it.repoNameKebabCase %>.repo.interface';
+<% } %>
+
+
+@fullInjectable()
+export class <%= it.endpointIdPascalCase %>UseCase extends <% if (it.useTransaction) { %>TransactionalUseCase<% } else { %>NonTransactionalUseCase<% } %><<%= it.endpointIdPascalCase %>Request> implements I<%= it.endpointIdPascalCase %>UseCase
+{
+    @inject<%= it.endpointIdPascalCase %>Presenter() private readonly presenter!: I<%= it.endpointIdPascalCase %>Presenter;
+<% if (it.generateRepo) { -%>
+    @inject<%= it.repoNamePascalCase %>Repo() private readonly <%= it.repoNameCamelCase %>Repo!: I<%= it.repoNamePascalCase %>Repo;
+<% } -%>
+<% if (it.useTransaction) { %>
+
+    protected override getIsolationLevel(): TransactionIsolationLevel {
+        return 'read-committed';
+    }
+
+    protected override getAccessMode(): TransactionAccessMode {
+        return <% if (it.httpMethod === 'get') { %>'read-only'<% } else { %>'read-write'<% } %>;
+    }
+<% } %>
+
+    protected override async _assertCanAccess(): Promise<void> {
+        throw new Error('_assertCanAccess not implemented.');
+    }
+
+    protected override async _execute(input: <%= it.endpointIdPascalCase %>Request): Promise<void> {
+
+    }
+
+}

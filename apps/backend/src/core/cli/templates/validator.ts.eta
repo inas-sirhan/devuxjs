@@ -1,0 +1,13 @@
+import type { I<%= it.endpointIdPascalCase %>Validator } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.validator.interface';
+import { <%= it.endpointIdCamelCase %>ZodSchema, type <%= it.endpointIdPascalCase %>Request } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.zod.schema';
+import { Validator } from '@/core/base-classes/validator/validator';
+import { fullInjectable } from '@/core/utils/core.utils';
+
+
+
+@fullInjectable()
+export class <%= it.endpointIdPascalCase %>Validator extends Validator<<%= it.endpointIdPascalCase %>Request> implements I<%= it.endpointIdPascalCase %>Validator {
+    public override getValidationSchema() {
+        return <%= it.endpointIdCamelCase %>ZodSchema;
+    }
+}

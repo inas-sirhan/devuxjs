@@ -1,0 +1,14 @@
+import { defineDiToken, createInjectFn } from '@/core/utils/di-tokens.core.utils';
+
+
+export const <%= it.endpointIdPascalCase %>ControllerDiToken = defineDiToken('<%= it.endpointIdPascalCase %>Controller');
+export const inject<%= it.endpointIdPascalCase %>Controller = createInjectFn(<%= it.endpointIdPascalCase %>ControllerDiToken);
+
+export const <%= it.endpointIdPascalCase %>ValidatorDiToken = defineDiToken('<%= it.endpointIdPascalCase %>Validator');
+export const inject<%= it.endpointIdPascalCase %>Validator = createInjectFn(<%= it.endpointIdPascalCase %>ValidatorDiToken);
+
+export const <%= it.endpointIdPascalCase %>PresenterDiToken = defineDiToken('<%= it.endpointIdPascalCase %>Presenter');
+export const inject<%= it.endpointIdPascalCase %>Presenter = createInjectFn(<%= it.endpointIdPascalCase %>PresenterDiToken);
+
+export const <%= it.endpointIdPascalCase %>UseCaseDiToken = defineDiToken('<%= it.endpointIdPascalCase %>UseCase');
+export const inject<%= it.endpointIdPascalCase %>UseCase = createInjectFn(<%= it.endpointIdPascalCase %>UseCaseDiToken);

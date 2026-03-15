@@ -1,0 +1,21 @@
+{
+  "name": "devux",
+  "private": true,
+  "scripts": {
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "check": "turbo run check",
+    "check:fix": "turbo run check:fix",
+    "devux": "pnpm -F backend devux",
+    "sync:api": "pnpm -F backend sync:api",
+    "sync:translations": "pnpm -F @packages/shared sync:translations"
+  },
+  "devDependencies": {
+    "turbo": "2.5.8"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

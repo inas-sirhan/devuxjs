@@ -1,0 +1,20 @@
+import { <%= it.serviceNamePascalCase %> } from '@/app-services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>';
+import type { I<%= it.serviceNamePascalCase %> } from '@/app-services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>.interface';
+import { <%= it.serviceNamePascalCase %>DiToken } from '@/__internals__/app-services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>.inversify.tokens';
+<% if (it.isGlobal) { %>
+import type { AppContainer } from '@/core/containers/app-container';
+
+
+
+export function setup<%= it.serviceNamePascalCase %>Bindings(appContainer: AppContainer) {
+    appContainer.bindGlobalSingleton<I<%= it.serviceNamePascalCase %>>(<%= it.serviceNamePascalCase %>DiToken, <%= it.serviceNamePascalCase %>);
+}
+<% } else { %>
+import type { RequestContainer } from '@/core/containers/request-container';
+
+
+
+export function setup<%= it.serviceNamePascalCase %>Bindings(requestContainer: RequestContainer) {
+    requestContainer.bindRequestSingleton<I<%= it.serviceNamePascalCase %>>(<%= it.serviceNamePascalCase %>DiToken, <%= it.serviceNamePascalCase %>);
+}
+<% } %>

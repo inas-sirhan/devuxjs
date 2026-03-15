@@ -1,0 +1,21 @@
+import { <%= it.endpointIdPascalCase %>Controller } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.controller';
+import type { I<%= it.endpointIdPascalCase %>Controller } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.controller.interface';
+import { <%= it.endpointIdPascalCase %>Presenter } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.presenter';
+import type { I<%= it.endpointIdPascalCase %>Presenter } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.presenter.interface';
+<% if (it.generateRepo) { %>import { setup<%= it.repoNamePascalCase %>RepoBindings } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/repos/<%= it.repoNameKebabCase %>/<%= it.repoNameKebabCase %>.repo.inversify.bindings';
+<% } %>import { <%= it.endpointIdPascalCase %>UseCase } from '@/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.use-case';
+import type { I<%= it.endpointIdPascalCase %>UseCase } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.use-case.interface';
+import { <%= it.endpointIdPascalCase %>Validator } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.validator';
+import type { I<%= it.endpointIdPascalCase %>Validator } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.validator.interface';
+import type { RequestContainer } from '@/core/containers/request-container';
+import { <%= it.endpointIdPascalCase %>ControllerDiToken, <%= it.endpointIdPascalCase %>ValidatorDiToken, <%= it.endpointIdPascalCase %>PresenterDiToken, <%= it.endpointIdPascalCase %>UseCaseDiToken } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.inversify.tokens';
+
+
+
+export function setup<%= it.endpointIdPascalCase %>Bindings(requestContainer: RequestContainer) {
+    requestContainer.bindRequestSingleton<I<%= it.endpointIdPascalCase %>Controller>(<%= it.endpointIdPascalCase %>ControllerDiToken, <%= it.endpointIdPascalCase %>Controller);
+    requestContainer.bindRequestSingleton<I<%= it.endpointIdPascalCase %>Validator>(<%= it.endpointIdPascalCase %>ValidatorDiToken, <%= it.endpointIdPascalCase %>Validator);
+    requestContainer.bindRequestSingleton<I<%= it.endpointIdPascalCase %>Presenter>(<%= it.endpointIdPascalCase %>PresenterDiToken, <%= it.endpointIdPascalCase %>Presenter);
+    requestContainer.bindRequestSingleton<I<%= it.endpointIdPascalCase %>UseCase>(<%= it.endpointIdPascalCase %>UseCaseDiToken, <%= it.endpointIdPascalCase %>UseCase);
+<% if (it.generateRepo) { %>    setup<%= it.repoNamePascalCase %>RepoBindings(requestContainer);
+<% } %>}

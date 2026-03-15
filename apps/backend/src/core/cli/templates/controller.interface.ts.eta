@@ -1,0 +1,5 @@
+import type { IController } from '@/core/base-classes/controller/controller.interface';
+
+
+
+export interface I<%= it.endpointIdPascalCase %>Controller extends IController {}

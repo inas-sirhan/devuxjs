@@ -1,0 +1,6 @@
+import type { IValidator } from '@/core/base-classes/validator/validator.interface';
+import type { <%= it.endpointIdPascalCase %>Request } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.zod.schema';
+
+
+
+export interface I<%= it.endpointIdPascalCase %>Validator extends IValidator<<%= it.endpointIdPascalCase %>Request> {}

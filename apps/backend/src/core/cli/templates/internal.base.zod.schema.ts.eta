@@ -1,0 +1,6 @@
+import { <%= it.domainNameCamelCase %>BaseZodSchema } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.domainNameKebabCase %>.base.zod.schema';
+import { zodStrictReplace } from '@packages/shared-core/zod/shared.core.zod.utils';
+
+export const <%= it.domainNameCamelCase %>InternalBaseZodSchema = zodStrictReplace(<%= it.domainNameCamelCase %>BaseZodSchema, {
+
+});

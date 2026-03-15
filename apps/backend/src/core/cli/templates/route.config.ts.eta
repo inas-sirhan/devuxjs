@@ -1,0 +1,17 @@
+import type { <%= it.endpointIdPascalCase %>Request } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.zod.schema';
+import { with<%= it.domainNamePascalCase %>RoutePath } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/<%= it.domainNameKebabCase %>.route';
+import { defineRouteConfig } from '@/core/utils/define-route-config.core.utils';
+
+
+
+const <%= it.domainNameCamelCase %>Path = with<%= it.domainNamePascalCase %>RoutePath<<%= it.endpointIdPascalCase %>Request>();
+
+
+export const <%= it.endpointIdCamelCase %>RouteConfig = defineRouteConfig({
+    method: '<%= it.httpMethod %>',
+    path: <%= it.domainNameCamelCase %>Path,
+<% if (it.generateMiddlewares) { %>    middlewares: {},
+<% } %><% if (it.generateSummary) { %>    summary: '',
+<% } %><% if (it.generateDescription) { %>    description: '',
+<% } %><% if (it.generateExtraTags) { %>    extraTags: [],
+<% } %>});

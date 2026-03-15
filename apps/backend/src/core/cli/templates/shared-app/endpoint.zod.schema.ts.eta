@@ -1,0 +1,9 @@
+import { <%= it.domainNameCamelCase %>BaseZodSchema } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.domainNameKebabCase %>.base.zod.schema';
+import { zodStrictPick } from '@packages/shared-core/zod/shared.core.zod.utils';
+import type * as z from 'zod';
+
+export const <%= it.endpointIdCamelCase %>ZodSchema = zodStrictPick(<%= it.domainNameCamelCase %>BaseZodSchema, {
+
+});
+
+export type <%= it.endpointIdPascalCase %>Request = z.infer<typeof <%= it.endpointIdCamelCase %>ZodSchema>;

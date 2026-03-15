@@ -1,0 +1,25 @@
+<% if (it.httpMethod === 'put' || it.httpMethod === 'patch') { -%>
+import { zodResultNoData } from '@/core/utils/result-pattern.core.utils';
+<% } else { -%>
+import { zodResult } from '@/core/utils/result-pattern.core.utils';
+import { getBodySchemaFromResponse } from '@/core/utils/responses-builders.core.utils';
+import { <%= it.endpointIdCamelCase %>Responses } from '@/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.responses';
+<% } -%>
+import { <%= it.endpointIdCamelCase %>ZodSchema } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.zod.schema';
+import { <%= it.domainNamePascalCase %>ErrorCodes } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/<%= it.domainNameKebabCase %>.error-codes';
+
+
+
+export const <%= it.repoNameCamelCase %>RepoInputZodSchema = <%= it.endpointIdCamelCase %>ZodSchema;
+
+<% if (it.httpMethod === 'put' || it.httpMethod === 'patch') { -%>
+export const <%= it.repoNameCamelCase %>RepoOutputZodSchema = zodResultNoData({
+    errorCodes: ['example_error_code']
+});
+<% } else { -%>
+export const <%= it.repoNameCamelCase %>RepoOutputZodSchema = zodResult({
+    data: getBodySchemaFromResponse(<%= it.endpointIdCamelCase %>Responses, 'SuccessKeyExample'),
+    errorCodes: ['example_error_code']
+});
+<% } -%>
+

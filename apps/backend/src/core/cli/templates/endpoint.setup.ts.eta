@@ -1,0 +1,31 @@
+import { <%= it.endpointIdCamelCase %>RouteConfig } from '@/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.route.config';
+import { <%= it.endpointIdCamelCase %>Responses } from '@/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.responses';
+import { <%= it.endpointIdCamelCase %>ZodSchema } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.zod.schema';
+import { setupEndpoint } from '@/core/utils/setup-endpoint.core.utils';
+import { <%= it.endpointIdPascalCase %>ControllerDiToken, <%= it.endpointIdPascalCase %>PresenterDiToken } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.inversify.tokens';
+import { setup<%= it.endpointIdPascalCase %>Bindings } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.inversify.bindings';
+import type { AppContainer } from '@/core/containers/app-container';
+
+
+
+export function setup<%= it.endpointIdPascalCase %>Endpoint(container: AppContainer) {
+    const { summary, description, extraTags, ...routeConfig } = <%= it.endpointIdCamelCase %>RouteConfig;
+
+    setupEndpoint({
+        container,
+        endpointId: '<%= it.endpointIdCamelCase %>',
+        ...routeConfig,
+        bindings: {
+            controllerSymbol: <%= it.endpointIdPascalCase %>ControllerDiToken,
+            presenterSymbol: <%= it.endpointIdPascalCase %>PresenterDiToken,
+            setupEndpointBindings: setup<%= it.endpointIdPascalCase %>Bindings,
+        },
+        openApiConfig: {
+            ...(summary !== undefined && { summary }),
+            ...(description !== undefined && { description }),
+            ...(extraTags !== undefined && { extraTags }),
+            requestSchema: <%= it.endpointIdCamelCase %>ZodSchema,
+            responses: <%= it.endpointIdCamelCase %>Responses,
+        },
+    });
+}

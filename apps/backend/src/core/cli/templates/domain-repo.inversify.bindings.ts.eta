@@ -1,0 +1,10 @@
+import { <%= it.repoNamePascalCase %>Repo } from '@/domains/<%= it.domainNameKebabCase %>/<% if (it.serviceNameKebabCase) { %>services/<%= it.serviceNameKebabCase %>/<% } %>repos/<%= it.repoNameKebabCase %>/<%= it.repoNameKebabCase %>.repo';
+import type { I<%= it.repoNamePascalCase %>Repo } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/<% if (it.serviceNameKebabCase) { %>services/<%= it.serviceNameKebabCase %>/<% } %>repos/<%= it.repoNameKebabCase %>/<%= it.repoNameKebabCase %>.repo.interface';
+import { <%= it.repoNamePascalCase %>RepoDiToken } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/<% if (it.serviceNameKebabCase) { %>services/<%= it.serviceNameKebabCase %>/<% } %>repos/<%= it.repoNameKebabCase %>/<%= it.repoNameKebabCase %>.repo.inversify.tokens';
+import type { RequestContainer } from '@/core/containers/request-container';
+
+
+
+export function setup<%= it.repoNamePascalCase %>RepoBindings(requestContainer: RequestContainer) {
+    requestContainer.bindRequestSingleton<I<%= it.repoNamePascalCase %>Repo>(<%= it.repoNamePascalCase %>RepoDiToken, <%= it.repoNamePascalCase %>Repo);
+}

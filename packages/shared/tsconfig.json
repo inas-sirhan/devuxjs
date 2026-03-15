@@ -1,0 +1,45 @@
+
+{
+  "compilerOptions": {
+
+    "strict": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@packages/shared-core/*": ["./src/shared-core/*"],
+      "@packages/shared-app/*": ["./src/shared-app/*"]
+    },
+
+    "target": "esnext",
+    "module":  "esnext",
+    "moduleResolution": "bundler",
+
+    "noEmit": true, 
+    "rewriteRelativeImportExtensions": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,             
+   
+    "noImplicitAny": true,                            
+    "strictNullChecks": true,                         
+    "strictFunctionTypes": true,                     
+    "strictBindCallApply": true,                     
+    "strictPropertyInitialization": true,             
+    "strictBuiltinIteratorReturn": true,              
+    "noImplicitThis": true,                           
+    "useUnknownInCatchVariables": true,               
+    "alwaysStrict": true,                            
+    "noUnusedLocals": true,                          
+    "noUnusedParameters": true,                       
+    "noImplicitReturns": true,                        
+    "noFallthroughCasesInSwitch": true,               
+    "allowUnusedLabels": false,                        
+    "allowUnreachableCode": false,                     
+    "exactOptionalPropertyTypes": true, 
+    "noImplicitOverride": true,                       
+  },
+
+}

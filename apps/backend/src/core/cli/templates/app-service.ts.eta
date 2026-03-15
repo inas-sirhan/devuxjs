@@ -1,0 +1,9 @@
+import type { I<%= it.serviceNamePascalCase %> } from '@/app-services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>.interface';
+import { injectable } from 'inversify';
+
+
+
+@injectable()
+export class <%= it.serviceNamePascalCase %> implements I<%= it.serviceNamePascalCase %> {
+
+}

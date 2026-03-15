@@ -1,0 +1,12 @@
+{
+  "info": {
+    "title": "Devux Generated OpenApi Spec",
+    "version": "0.0.0"
+  },
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {},
+    "parameters": {}
+  },
+  "paths": {}
+}

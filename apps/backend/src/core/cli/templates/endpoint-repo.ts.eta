@@ -1,0 +1,44 @@
+import { <%= it.repoNameCamelCase %>RepoInputZodSchema, <%= it.repoNameCamelCase %>RepoOutputZodSchema } from '@/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/repos/<%= it.repoNameKebabCase %>/<%= it.repoNameKebabCase %>.repo.zod.schemas';
+import type { <%= it.repoNamePascalCase %>RepoInput, <%= it.repoNamePascalCase %>RepoOutput, I<%= it.repoNamePascalCase %>Repo } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/endpoints/<%= it.endpointIdKebabCase %>/repos/<%= it.repoNameKebabCase %>/<%= it.repoNameKebabCase %>.repo.interface';
+import { <%= it.domainNamePascalCase %>ErrorCodes } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/<%= it.domainNameKebabCase %>.error-codes';
+<% if (it.useTransaction) { -%>
+import { TransactionalRepo } from '@/core/base-classes/repo/repo.transactional';
+<% } else { -%>
+import { NonTransactionalRepo } from '@/core/base-classes/repo/repo.non-transactional';
+<% } -%>
+import { fullInjectable } from '@/core/utils/core.utils';
+
+
+
+@fullInjectable()
+export class <%= it.repoNamePascalCase %>Repo extends <% if (it.useTransaction) { %>TransactionalRepo<% } else { %>NonTransactionalRepo<% } %><<%= it.repoNamePascalCase %>RepoInput, <%= it.repoNamePascalCase %>RepoOutput> implements I<%= it.repoNamePascalCase %>Repo {
+
+    protected override async _execute(input: <%= it.repoNamePascalCase %>RepoInput): Promise<<%= it.repoNamePascalCase %>RepoOutput> {
+        throw new Error("Not implemented yet.");
+    }
+<% if (it.repoOperation === 'write' && it.generateUniqueKeyViolationErrorMap) { %>
+
+    protected override getUniqueKeyViolationErrorMap() {
+        return {
+
+        } as const;
+    }
+<% } -%>
+<% if ((it.repoOperation === 'write' || it.repoOperation === 'delete') && it.generateForeignKeyViolationErrorMap) { %>
+
+    protected override getForeignKeyViolationErrorMap() {
+        return {
+
+        } as const;
+    }
+<% } %>
+
+    protected override getRepoInputZodSchema() {
+        return <%= it.repoNameCamelCase %>RepoInputZodSchema;
+    }
+
+    protected override getRepoOutputZodSchema() {
+        return <%= it.repoNameCamelCase %>RepoOutputZodSchema;
+    }
+
+}

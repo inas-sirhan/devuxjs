@@ -1,0 +1,6 @@
+import type { IUseCase } from '@/core/base-classes/use-case/use-case.interface';
+import type { <%= it.endpointIdPascalCase %>Request } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.endpointIdKebabCase %>/<%= it.endpointIdKebabCase %>.zod.schema';
+
+
+
+export interface I<%= it.endpointIdPascalCase %>UseCase extends IUseCase<<%= it.endpointIdPascalCase %>Request> {}

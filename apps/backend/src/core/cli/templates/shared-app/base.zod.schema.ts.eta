@@ -1,0 +1,9 @@
+import { createZodObject } from '@packages/shared-core/zod/shared.core.zod.utils';
+import type * as z from 'zod';
+
+const shape = {
+
+};
+
+export const <%= it.domainNameCamelCase %>BaseZodSchema = createZodObject(shape);
+export type <%= it.domainNamePascalCase %>Base = z.infer<typeof <%= it.domainNameCamelCase %>BaseZodSchema>;

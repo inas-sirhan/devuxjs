@@ -1,0 +1,10 @@
+import { <%= it.serviceNameCamelCase %>InputZodSchema, <%= it.serviceNameCamelCase %>OutputZodSchema } from '@/domains/<%= it.domainNameKebabCase %>/services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>.zod.schemas';
+import type { IDomainService } from '@/core/base-classes/domain-service/domain-service.interface';
+import type * as z from 'zod';
+
+
+
+export type <%= it.serviceNamePascalCase %>Input = z.infer<typeof <%= it.serviceNameCamelCase %>InputZodSchema>;
+export type <%= it.serviceNamePascalCase %>Output = z.infer<typeof <%= it.serviceNameCamelCase %>OutputZodSchema>;
+
+export interface I<%= it.serviceNamePascalCase %> extends IDomainService<<%= it.serviceNamePascalCase %>Input, <%= it.serviceNamePascalCase %>Output> {}

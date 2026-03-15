@@ -1,0 +1,7 @@
+import { RoutePath } from '@/core/utils/route-path.core.utils';
+
+export const <%= it.domainNameCamelCase %>DomainName = '<%= it.domainNameKebabCase %>' as const;
+
+export function with<%= it.domainNamePascalCase %>RoutePath<TRequest>(): RoutePath<TRequest> {
+    return new RoutePath<TRequest>().static(<%= it.domainNameCamelCase %>DomainName);
+}

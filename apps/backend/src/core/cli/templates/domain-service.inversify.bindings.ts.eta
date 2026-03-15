@@ -1,0 +1,10 @@
+import { <%= it.serviceNamePascalCase %> } from '@/domains/<%= it.domainNameKebabCase %>/services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>';
+import type { I<%= it.serviceNamePascalCase %> } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>.interface';
+import { <%= it.serviceNamePascalCase %>DiToken } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>.inversify.tokens';
+import type { RequestContainer } from '@/core/containers/request-container';
+
+
+
+export function setup<%= it.serviceNamePascalCase %>Bindings(requestContainer: RequestContainer) {
+    requestContainer.bindRequestSingleton<I<%= it.serviceNamePascalCase %>>(<%= it.serviceNamePascalCase %>DiToken, <%= it.serviceNamePascalCase %>);
+}

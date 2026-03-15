@@ -1,0 +1,18 @@
+import { zodResult } from '@/core/utils/result-pattern.core.utils';
+import { zodStrictPick } from '@packages/shared-core/zod/shared.core.zod.utils';
+import { <%= it.domainNamePascalCase %>ErrorCodes } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/<%= it.domainNameKebabCase %>.error-codes';
+import { <%= it.domainNameCamelCase %>BaseZodSchema } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/zod-schemas/<%= it.domainNameKebabCase %>.base.zod.schema';
+
+
+
+export const <%= it.serviceNameCamelCase %>InputZodSchema = zodStrictPick(<%= it.domainNameCamelCase %>BaseZodSchema, {
+
+});
+
+export const <%= it.serviceNameCamelCase %>OutputZodSchema = zodResult({
+    data: zodStrictPick(<%= it.domainNameCamelCase %>BaseZodSchema, {
+
+    }),
+    errorCodes: ['example_error_code']
+});
+

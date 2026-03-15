@@ -1,0 +1,24 @@
+import { <%= it.serviceNameCamelCase %>InputZodSchema, <%= it.serviceNameCamelCase %>OutputZodSchema } from '@/domains/<%= it.domainNameKebabCase %>/services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>.zod.schemas';
+import type { <%= it.serviceNamePascalCase %>Input, <%= it.serviceNamePascalCase %>Output, I<%= it.serviceNamePascalCase %> } from '@/__internals__/domains/<%= it.domainNameKebabCase %>/services/<%= it.serviceNameKebabCase %>/<%= it.serviceNameKebabCase %>.interface';
+import { <%= it.domainNamePascalCase %>ErrorCodes } from '@packages/shared-app/domains/<%= it.domainNameKebabCase %>/<%= it.domainNameKebabCase %>.error-codes';
+import { DomainService } from '@/core/base-classes/domain-service/domain-service';
+import { fullInjectable } from '@/core/utils/core.utils';
+
+
+
+@fullInjectable()
+export class <%= it.serviceNamePascalCase %> extends DomainService<<%= it.serviceNamePascalCase %>Input, <%= it.serviceNamePascalCase %>Output> implements I<%= it.serviceNamePascalCase %> {
+
+    protected override async _execute(input: <%= it.serviceNamePascalCase %>Input): Promise<<%= it.serviceNamePascalCase %>Output> {
+        throw new Error("Not implemented yet.");
+    }
+
+    protected override getServiceInputZodSchema() {
+        return <%= it.serviceNameCamelCase %>InputZodSchema;
+    }
+
+    protected override getServiceOutputZodSchema() {
+        return <%= it.serviceNameCamelCase %>OutputZodSchema;
+    }
+
+}

@@ -1,0 +1,176 @@
+{
+  "use-case-base": {
+    "type": "base",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": true,
+    "dependencies": [
+      "core-hooks",
+      "request-context",
+      "access-guard",
+      "user-context"
+    ]
+  },
+  "transactional-use-case": {
+    "type": "base",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": true,
+    "dependencies": [
+      "database-transaction-manager"
+    ]
+  },
+  "non-transactional-use-case": {
+    "type": "base",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": true,
+    "dependencies": []
+  },
+  "repo-base": {
+    "type": "base",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": true,
+    "dependencies": [
+      "core-hooks",
+      "request-context",
+      "user-context"
+    ]
+  },
+  "transactional-repo": {
+    "type": "base",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": true,
+    "dependencies": [
+      "database-transaction-connection-provider"
+    ]
+  },
+  "non-transactional-repo": {
+    "type": "base",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": true,
+    "dependencies": [
+      "database-connection-pool"
+    ]
+  },
+  "domain-service-base": {
+    "type": "base",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": true,
+    "dependencies": [
+      "core-hooks",
+      "request-context",
+      "user-context"
+    ]
+  },
+  "database-connection-pool": {
+    "type": "service:core",
+    "bindingType": "value",
+    "isGlobal": true,
+    "isCore": true,
+    "isPublic": true,
+    "dependencies": [],
+    "dependents": [
+      "non-transactional-repo",
+      "database-transaction-manager"
+    ]
+  },
+  "core-hooks": {
+    "type": "service:core",
+    "bindingType": "singleton",
+    "isGlobal": true,
+    "isCore": true,
+    "isPublic": false,
+    "dependencies": [],
+    "dependents": [
+      "use-case-base",
+      "repo-base",
+      "domain-service-base",
+      "database-transaction-manager"
+    ]
+  },
+  "database-transaction-connection-provider": {
+    "type": "service:core",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": true,
+    "isPublic": false,
+    "dependencies": [],
+    "dependents": [
+      "transactional-repo",
+      "database-transaction-manager"
+    ]
+  },
+  "database-transaction-manager": {
+    "type": "service:core",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": true,
+    "isPublic": false,
+    "dependencies": [
+      "database-connection-pool",
+      "database-transaction-connection-provider",
+      "core-hooks",
+      "request-context"
+    ],
+    "dependents": [
+      "transactional-use-case"
+    ]
+  },
+  "request-context": {
+    "type": "service:core",
+    "bindingType": "value",
+    "isGlobal": false,
+    "isCore": true,
+    "isPublic": true,
+    "dependencies": [],
+    "dependents": [
+      "use-case-base",
+      "repo-base",
+      "domain-service-base",
+      "database-transaction-manager"
+    ]
+  },
+  "access-guard": {
+    "type": "service:app",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": false,
+    "dependencies": [],
+    "dependents": [
+      "use-case-base"
+    ]
+  },
+  "session-context": {
+    "type": "service:app",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": false,
+    "dependencies": [],
+    "dependents": []
+  },
+  "session-manager": {
+    "type": "service:app",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": false,
+    "dependencies": [],
+    "dependents": []
+  },
+  "user-context": {
+    "type": "service:app",
+    "bindingType": "singleton",
+    "isGlobal": false,
+    "isCore": false,
+    "dependencies": [],
+    "dependents": [
+      "use-case-base",
+      "repo-base",
+      "domain-service-base"
+    ]
+  }
+}
