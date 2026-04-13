@@ -1,6 +1,6 @@
-# Devux
+# Devux.js
 
-**Devux** is an opinionated full-stack TypeScript framework for Node.js, designed for building highly testable, maintainable, enterprise-grade applications with type-safe RESTful APIs. It enforces clean architecture, provides end-to-end type safety, speeds up development, and improves developer experience.
+**Devux** is an opinionated framework for Node.js and TypeScript, designed for building highly testable, maintainable, enterprise-grade applications with type-safe RESTful APIs. It enforces clean architecture, provides end-to-end type safety, speeds up development, and improves developer experience.
 
 > [Documentation](https://devuxjs.com) &nbsp;·&nbsp; [Getting Started →](https://devuxjs.com/docs/getting-started)
 
