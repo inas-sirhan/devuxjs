@@ -4,15 +4,24 @@ import * as z from 'zod';
 
 
 export class ApiError extends Error {
+    public readonly statusCode: number;
+    public readonly body: {
+        errorType: string;
+        errorCode: string;
+        [key: string]: unknown;
+    };
+
     public constructor(
-        public readonly statusCode: number,
-        public readonly body: {
+        statusCode: number,
+        body: {
             errorType: string;
             errorCode: string;
             [key: string]: unknown;
         },
     ) {
         super();
+        this.statusCode = statusCode;
+        this.body = body;
     }
 }
 
