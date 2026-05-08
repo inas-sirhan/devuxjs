@@ -115,7 +115,8 @@ export function createMulterUpload({ fileUploadConfig, maxFields }: CreateMulter
             fileSize: fileUploadConfig.maxFileSizeBytes,
             files: maxFiles,
             fields: maxFields,
-            parts: maxParts,
+            // busboy fires partsLimit when count === limit, not >; pass +1 so maxParts is allowed.
+            parts: maxParts + 1,
             headerPairs: maxParts * 5,
             fieldSize: fileUploadConfig.maxFieldValueSizeBytes ?? coreConfig.fileUpload.maxFieldValueSizeBytes,
             fieldNameSize: fileUploadConfig.maxFieldNameSizeBytes ?? coreConfig.fileUpload.maxFieldNameSizeBytes,
