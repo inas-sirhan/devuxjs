@@ -43,7 +43,7 @@ export async function selectAction<T extends string>(
         if (typeof selected === 'string' && selected !== '') {
             return selected as T;
         }
-        p.log.warning('Please pick a value.');
+        p.log.warning('Please pick a value from the list.');
     }
 }
 
@@ -52,20 +52,16 @@ export async function selectRequired<T extends string>(
     message: string,
     options: SelectOptions<T>
 ): Promise<T> {
-    while (true) {
-        const selected = await p.autocomplete({
-            message,
-            options,
-        });
+    const selected = await p.autocomplete({
+        message,
+        options,
+    });
 
-        if (p.isCancel(selected) === true) {
-            handleCancel();
-        }
-        if (typeof selected === 'string' && selected !== '') {
-            return selected as T;
-        }
-        p.log.warning('Please pick a value.');
+    if (p.isCancel(selected) === true) {
+        handleCancel();
     }
+
+    return selected as T;
 }
 
 

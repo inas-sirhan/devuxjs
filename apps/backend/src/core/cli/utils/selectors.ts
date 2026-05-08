@@ -29,7 +29,7 @@ async function selectFromList(config: SelectFromListConfig): Promise<string | nu
         if (typeof selected === 'string' && selected !== '') {
             return selected;
         }
-        p.log.warning('Please pick a value.');
+        p.log.warning('Please pick a value from the list.');
     }
 }
 
