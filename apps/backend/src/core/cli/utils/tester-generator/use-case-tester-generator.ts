@@ -140,20 +140,18 @@ export function generateE2ETester(domain: string, endpointId: string): void {
 
     const responsesName = `${endpointCamel}Responses`;
     const responsesTypeName = `${endpointPascal}Responses`;
-    const inputTypeName = `${endpointPascal}Request`;
 
     const importLines: string[] = [];
 
     importLines.push(`import { E2ETester } from '@/core/testers/e2e.tester';`);
     importLines.push(`import { ${responsesName} } from '@/domains/${domain}/endpoints/${endpointId}/${endpointId}.responses';`);
     importLines.push(`import type { ${responsesTypeName} } from '@/domains/${domain}/endpoints/${endpointId}/${endpointId}.responses';`);
-    importLines.push(`import type { ${inputTypeName} } from '@packages/shared-app/domains/${domain}/zod-schemas/${endpointId}/${endpointId}.zod.schema';`);
     importLines.push(`import { Api } from '@api/api.fetch';`);
 
     const fileContent = `${importLines.join('\n')}
 
 
-export class ${endpointPascal}E2ETester extends E2ETester<${responsesTypeName}, ${inputTypeName}> {
+export class ${endpointPascal}E2ETester extends E2ETester<${responsesTypeName}, typeof Api.${endpointCamel}> {
     public constructor() {
         super({
             responses: ${responsesName},
