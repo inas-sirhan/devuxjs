@@ -17,16 +17,20 @@ async function selectFromList(config: SelectFromListConfig): Promise<string | nu
 
     const options = withBackOption(config.items.map(item => ({ value: item, label: item })));
 
-    const selected = await p.autocomplete({ message: config.message, options });
+    while (true) {
+        const selected = await p.autocomplete({ message: config.message, options });
 
-    if (p.isCancel(selected) === true) {
-        handleCancel();
+        if (p.isCancel(selected) === true) {
+            handleCancel();
+        }
+        if (selected === BACK_VALUE) {
+            return null;
+        }
+        if (typeof selected === 'string' && selected !== '') {
+            return selected;
+        }
+        p.log.warning('Please pick a value.');
     }
-    if (selected === BACK_VALUE) {
-        return null;
-    }
-
-    return selected;
 }
 
 

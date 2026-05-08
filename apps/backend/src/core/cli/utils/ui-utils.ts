@@ -26,19 +26,25 @@ export async function selectAction<T extends string>(
     message: string,
     options: SelectOptions<T>
 ): Promise<T | null> {
-    const selected = await p.autocomplete({
-        message,
-        options: withBackOption(options),
-    });
+    const optionsWithBack = withBackOption(options);
 
-    if (p.isCancel(selected) === true) {
-        handleCancel();
-    }
-    if (selected === BACK_VALUE) {
-        return null;
-    }
+    while (true) {
+        const selected = await p.autocomplete({
+            message,
+            options: optionsWithBack,
+        });
 
-    return selected as T;
+        if (p.isCancel(selected) === true) {
+            handleCancel();
+        }
+        if (selected === BACK_VALUE) {
+            return null;
+        }
+        if (typeof selected === 'string' && selected !== '') {
+            return selected as T;
+        }
+        p.log.warning('Please pick a value.');
+    }
 }
 
 
@@ -46,16 +52,20 @@ export async function selectRequired<T extends string>(
     message: string,
     options: SelectOptions<T>
 ): Promise<T> {
-    const selected = await p.autocomplete({
-        message,
-        options,
-    });
+    while (true) {
+        const selected = await p.autocomplete({
+            message,
+            options,
+        });
 
-    if (p.isCancel(selected) === true) {
-        handleCancel();
+        if (p.isCancel(selected) === true) {
+            handleCancel();
+        }
+        if (typeof selected === 'string' && selected !== '') {
+            return selected as T;
+        }
+        p.log.warning('Please pick a value.');
     }
-
-    return selected as T;
 }
 
 
@@ -70,28 +80,6 @@ export async function confirmAction(message: string): Promise<boolean> {
     }
 
     return true;
-}
-
-
-export async function promptText(
-    message: string,
-    validate: (value: string) => string | undefined
-): Promise<string | null> {
-    const value = await p.text({
-        message,
-        validate: (val) => {
-            if (val === undefined) {
-                return undefined;
-            }
-            return validate(val);
-        },
-    });
-
-    if (p.isCancel(value) === true) {
-        handleCancel();
-    }
-
-    return value;
 }
 
 
