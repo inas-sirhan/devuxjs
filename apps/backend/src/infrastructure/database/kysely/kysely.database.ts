@@ -4,7 +4,8 @@ import { Kysely, PostgresDialect } from 'kysely';
 import { Pool } from 'pg';
 import { types } from 'pg';
 import { MyCaseTransformerKyselyPlugin } from '@/infrastructure/database/kysely/plugins/case-transformer.kysely.plugin';
-import { minutesToMillis, secondsToMillis } from '@/core/utils/core.utils'; 
+import { minutesToMillis, secondsToMillis } from '@/core/utils/core.utils';
+import { coreConfig } from '@/infrastructure/core/core.config';
 
 
 // All date/time types as strings
@@ -43,7 +44,7 @@ export function createDatabasePool(connectionString: string) {
         keepAlive: true,
         keepAliveInitialDelayMillis: secondsToMillis(30),
 
-        allowExitOnIdle: false,
+        allowExitOnIdle: coreConfig.isTesting,
     });
 
     pool.on('connect', (client) => {
