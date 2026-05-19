@@ -17,7 +17,7 @@
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "start:test": "cross-env NODE_ENV=test node dist/index.js",
     "test": "vitest run",
-    "test:e2e-only": "vitest run --include '**/*.e2e.test.ts'",
+    "test:e2e-only": "vitest run .e2e.test.ts",
     "test:without-e2e": "vitest run --exclude '**/*.e2e.test.ts'",
     "test:coverage": "vitest run --coverage",
     "devux": "tsx src/core/cli/cli.ts",
