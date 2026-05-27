@@ -33,7 +33,9 @@ export abstract class AppServiceTester<
         const appContainer = new AppContainer();
 
         if (this.config.isGlobal) {
-            (this.config.setupServiceBindings as (ac: AppContainer) => void)(appContainer);
+            // Global app services are already bound by AppContainer's bindGlobalSingletonServices().
+            // Calling setupServiceBindings here would double-bind and throw.
+            // (this.config.setupServiceBindings as (ac: AppContainer) => void)(appContainer);
 
             const container = appContainer.getContainer();
 
