@@ -95,26 +95,11 @@ export function addInjectable(injectableName: string, config: InjectableConfig):
     registry[injectableName] = config;
 }
 
-export function removeInjectable(injectableName: string): void {
+export function deleteInjectableRow(injectableName: string): void {
     const registry = getRegistry();
 
     if (registry[injectableName] === undefined) {
         throw new Error(`Injectable "${injectableName}" not found in registry`);
-    }
-
-    const dependents: string[] = [];
-    for (const [name, entry] of Object.entries(registry)) {
-        if (entry.dependencies.includes(injectableName) === true) {
-            dependents.push(name);
-        }
-    }
-
-    if (dependents.length > 0) {
-        throw new Error(
-            `Cannot remove injectable "${injectableName}" because it has dependents:\n` +
-            dependents.map(dep => `  - ${dep}`).join('\n') +
-            '\n\nRemove or update these injectables first.',
-        );
     }
 
     delete registry[injectableName];

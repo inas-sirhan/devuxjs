@@ -7,8 +7,8 @@ import { configureEta, renderAndSave, type TemplateContext } from '@/core/cli/ut
 import { addRepoBindingsCallToEndpoint, getEndpointHttpMethod, removeRepoBindingsFromEndpoint } from '@/core/cli/utils/ts-morph/endpoint-operations.ts-morph';
 import { addRepoToUseCase, removeRepoFromUseCase } from '@/core/cli/utils/ts-morph/use-case-injections.ts-morph';
 import { coreConfig } from '@/infrastructure/core/core.config';
-import { getInjectable, removeInjectable, saveRegistry } from '@/core/cli/injectables-registry/injectables-registry.manager';
-import { registerEndpointInjectable, updateInjectableDependencies } from '@/core/cli/injectables-registry/injectables-registry.updater';
+import { getInjectable, saveRegistry } from '@/core/cli/injectables-registry/injectables-registry.manager';
+import { registerEndpointInjectable, updateInjectableDependencies, removeInjectable } from '@/core/cli/injectables-registry/injectables-registry.updater';
 import { checkEndpointRepoCollision } from '@/core/cli/utils/collision-detection';
 import { handleUnexpectedError, selectRequired, confirmAction, promptRequiredText } from '@/core/cli/utils/ui-utils';
 import { httpMethodToRepoOperation, type RepoOperation } from '@/core/cli/utils/type-utils';

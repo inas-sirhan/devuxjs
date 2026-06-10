@@ -4,7 +4,8 @@ import * as p from '@clack/prompts';
 import { kebabToPascalCase } from '@/core/cli/utils/case-converter';
 import { createOptimizedProject } from '@/core/cli/utils/ts-morph/helpers.ts-morph';
 import { Node } from 'ts-morph';
-import { getInjectable, removeInjectable, saveRegistry } from '@/core/cli/injectables-registry/injectables-registry.manager';
+import { getInjectable, saveRegistry } from '@/core/cli/injectables-registry/injectables-registry.manager';
+import { removeInjectable } from '@/core/cli/injectables-registry/injectables-registry.updater';
 import { removeEndpointId, saveEndpointIds } from '@/core/cli/endpoints-ids-registry/endpoints-ids-registry.manager';
 import { confirmAction } from '@/core/cli/utils/ui-utils';
 import { selectDomain, selectEndpoint } from '@/core/cli/utils/selectors';
@@ -35,17 +36,7 @@ export async function deleteEndpoint(): Promise<void> {
     const s = p.spinner();
     s.start('Deleting endpoint...');
 
-    const endpointPath = path.join(BACKEND_SRC_PATH, 'domains', domain, 'endpoints', endpointIdKebab);
-    fs.rmSync(endpointPath, { recursive: true, force: true });
-
-    const internalsEndpointPath = path.join(BACKEND_SRC_PATH, '__internals__', 'domains', domain, 'endpoints', endpointIdKebab);
-    fs.rmSync(internalsEndpointPath, { recursive: true, force: true });
-
-    const sharedEndpointPath = path.join(SHARED_PATH, 'src', 'shared-app', 'domains', domain, 'zod-schemas', endpointIdKebab);
-    fs.rmSync(sharedEndpointPath, { recursive: true, force: true });
-
     const endpointIdPascal = kebabToPascalCase(endpointIdKebab);
-
     await removeSetupEndpointCall(endpointIdPascal);
 
     const endpointRepos = useCaseConfig.dependencies
@@ -64,6 +55,10 @@ export async function deleteEndpoint(): Promise<void> {
 
     saveRegistry();
     saveEndpointIds();
+
+    fs.rmSync(path.join(BACKEND_SRC_PATH, 'domains', domain, 'endpoints', endpointIdKebab), { recursive: true, force: true });
+    fs.rmSync(path.join(BACKEND_SRC_PATH, '__internals__', 'domains', domain, 'endpoints', endpointIdKebab), { recursive: true, force: true });
+    fs.rmSync(path.join(SHARED_PATH, 'src', 'shared-app', 'domains', domain, 'zod-schemas', endpointIdKebab), { recursive: true, force: true });
 
     s.stop(`Successfully deleted endpoint: ${domain}/${endpointIdKebab}`);
 }

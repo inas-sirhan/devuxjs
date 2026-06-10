@@ -5,8 +5,8 @@ import { kebabToPascalCase, kebabToCamelCase, isKebabCase } from '@/core/cli/uti
 import { configureEta, renderAndSave, type TemplateContext } from '@/core/cli/utils/file-generator';
 import { addRepoBindingsCallToService, removeRepoBindingsCallFromService, addRepoToDomainService, removeRepoFromDomainService } from '@/core/cli/utils/ts-morph/domain-service-operations.ts-morph';
 import { coreConfig } from '@/infrastructure/core/core.config';
-import { getAllInjectables, removeInjectable, getInjectable, saveRegistry } from '@/core/cli/injectables-registry/injectables-registry.manager';
-import { registerInjectable, updateInjectableDependencies } from '@/core/cli/injectables-registry/injectables-registry.updater';
+import { getAllInjectables, getInjectable, saveRegistry } from '@/core/cli/injectables-registry/injectables-registry.manager';
+import { registerInjectable, updateInjectableDependencies, removeInjectable } from '@/core/cli/injectables-registry/injectables-registry.updater';
 import { selectAction, confirmAction, promptRequiredText, selectRequired, handleUnexpectedError } from '@/core/cli/utils/ui-utils';
 import { generateRepoTestFile } from '@/core/cli/utils/tester-generator/test-file-generators';
 import { generateRepoTester } from '@/core/cli/utils/tester-generator/repo-tester-generator';

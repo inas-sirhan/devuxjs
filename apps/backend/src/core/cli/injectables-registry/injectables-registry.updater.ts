@@ -1,5 +1,5 @@
 import type { BindingType, InjectableConfig, InjectableConfigWithDependents, InjectableType } from './injectables-registry.types';
-import { addInjectable, updateInjectable, removeInjectable as removeInjectableFromRegistry, getInjectable, injectableExists, getRegistry } from './injectables-registry.manager';
+import { addInjectable, updateInjectable, deleteInjectableRow, getInjectable, injectableExists, getRegistry } from './injectables-registry.manager';
 import { getDefaultIsGlobal } from './injectables-registry.helpers';
 
 
@@ -212,17 +212,22 @@ export function removeInjectable(
         );
     }
 
-    if (force === false && hasConfigDependents(injectable) && injectable.dependents.length > 0) {
-        throw new Error(
-            `Cannot remove "${injectableName}": ${injectable.dependents.length} other injectable(s) depend on it:\n` +
-                injectable.dependents.map((dep: string) => `  - ${dep}`).join('\n') +
-                '\n\nRemove these dependencies first, or use force=true to remove anyway.',
-        );
+    if (force === false) {
+        const liveDependents = Object.entries(getRegistry())
+            .filter(([, entry]) => entry.dependencies.includes(injectableName) === true)
+            .map(([name]) => name);
+        if (liveDependents.length > 0) {
+            throw new Error(
+                `Cannot remove "${injectableName}": ${liveDependents.length} other injectable(s) depend on it:\n` +
+                    liveDependents.map(dep => `  - ${dep}`).join('\n') +
+                    '\n\nRemove these dependencies first, or use force=true to remove anyway.',
+            );
+        }
     }
 
     removeFromDependents(injectableName, injectable.dependencies);
 
-    removeInjectableFromRegistry(injectableName);
+    deleteInjectableRow(injectableName);
 }
 
 
