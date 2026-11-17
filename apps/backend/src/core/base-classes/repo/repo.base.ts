@@ -71,7 +71,7 @@ export abstract class RepoBase<TInput extends RepoInput, TOutput extends RepoOut
     }
 
 
-    private mapConstraintErrorOrReThrow(error: unknown): TOutput {
+    protected mapConstraintErrorOrReThrow(error: unknown): Extract<TOutput, { success: false }> {
         type TOutputError = Extract<TOutput, { success: false }>;
         const errorType = checkDatabaseError(error);
 

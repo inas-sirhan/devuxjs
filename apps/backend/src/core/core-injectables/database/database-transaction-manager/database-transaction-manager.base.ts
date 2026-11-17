@@ -66,6 +66,10 @@ export abstract class DatabaseTransactionManagerBase implements IDatabaseTransac
         if (this.isActive() === false) {
             throw new Error(`[ERROR Commit Transaction]: Transaction is not active.. there may be a bug here. Current transaction state is: ${this.state}`);
         }
+        const abortedReason = this.connectionProvider.getTransactionAbortedReason();
+        if (abortedReason !== null) {
+            throw new Error(`[Commit Error]: Cannot commit, the transaction was aborted by Postgres (${abortedReason}). Committing would silently roll back every write in this transaction. Call rollback() when a repo returns a constraint error code, or prevent the violation (e.g. ON CONFLICT / check first) if the flow must continue.`);
+        }
 
         try {
             await this.commitInternal();

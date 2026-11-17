@@ -10,6 +10,13 @@ export abstract class TransactionalRepo<TInput extends RepoInput, TOutput extend
 
     @injectDatabaseTransactionConnectionProvider() private readonly connectionProvider!: IDatabaseTransactionConnectionProvider;
 
+    // Postgres has already aborted the whole transaction here; flag it so commit() fails loudly instead of silently rolling back.
+    protected override mapConstraintErrorOrReThrow(error: unknown): Extract<TOutput, { success: false }> {
+        const mappedError = super.mapConstraintErrorOrReThrow(error);
+        this.connectionProvider.markTransactionAborted(`${this.constructor.name} returned constraint error '${String(mappedError.errorCode)}'`);
+        return mappedError;
+    }
+
     protected get trx(): DatabaseTransactionConnection {
         const connection = this.connectionProvider.getTransactionConnection();
         if (connection === null) {

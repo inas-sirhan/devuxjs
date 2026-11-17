@@ -8,6 +8,7 @@ import { injectable } from 'inversify';
 export class DatabaseTransactionConnectionProvider implements IDatabaseTransactionConnectionProvider {
 
     protected transactionConnection: DatabaseTransactionConnection | null = null;
+    protected transactionAbortedReason: string | null = null;
 
     public getTransactionConnection(): DatabaseTransactionConnection | null {
         return this.transactionConnection;
@@ -15,6 +16,14 @@ export class DatabaseTransactionConnectionProvider implements IDatabaseTransacti
 
     public setTransactionConnection(transactionConnection: DatabaseTransactionConnection): void {
         this.transactionConnection = transactionConnection;
+    }
+
+    public markTransactionAborted(reason: string): void {
+        this.transactionAbortedReason = reason;
+    }
+
+    public getTransactionAbortedReason(): string | null {
+        return this.transactionAbortedReason;
     }
 
 }

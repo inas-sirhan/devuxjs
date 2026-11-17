@@ -5,5 +5,7 @@ import type { DatabaseTransactionConnection } from '@/core/core-injectables/data
 export interface IDatabaseTransactionConnectionProvider {
     getTransactionConnection(): DatabaseTransactionConnection | null;
     setTransactionConnection(transactionConnection: DatabaseTransactionConnection): void;
+    markTransactionAborted(reason: string): void;
+    getTransactionAbortedReason(): string | null;
 }
 
